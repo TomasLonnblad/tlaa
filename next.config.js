@@ -1,21 +1,13 @@
-
-/**
- * @type {import('next').NextConfig}
- */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  distDir: 'dist',
-  images: {
-  unoptimized: true,
-},
-  // Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
-  // trailingSlash: true,
- 
-  // Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
-  // skipTrailingSlashRedirect: true,
- 
-  // Optional: Change the output directory `out` -> `dist`
-  // distDir: 'dist',
-}
- 
-module.exports = nextConfig
+  reactStrictMode: true,
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [{ loader: "@svgr/webpack", options: { icon: true } }],
+    });
+    return config;
+  },
+};
+
+module.exports = nextConfig;
